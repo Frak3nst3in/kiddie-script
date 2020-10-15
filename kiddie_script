@@ -3,12 +3,12 @@
 #--------------------------------------------------------------------------------------
 #                                                                                     
 # Name	      : kiddie_script         						      
-# Author      : Frakenstein
+# Author      : Manu Santhosh
 # Date	      : 14/10/20
 # Modified    : 15/10/20
 # Description : This script is specialy made for script kiddies who is new to pentesting
 # Waring      : Only for educational purposes !!!!
-# Platform    : For Debian based distros , Termux
+# Platform    : For Debian based distros 
 #______________________________________________________________________________________
  
 #######################################################################################
