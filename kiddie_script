@@ -1,0 +1,171 @@
+#!/bin/bash
+
+#--------------------------------------------------------------------------------------
+#                                                                                     
+# Name	      : kiddie_script         						      
+# Author      : Frakenstein
+# Date	      : 14/10/20
+# Modified    : 15/10/20
+# Description : This script is specialy made for script kiddies who is new to pentesting
+# Waring      : Only for educational purposes !!!!
+# Platform    : For Debian based distros , Termux
+#______________________________________________________________________________________
+ 
+#######################################################################################
+#                            VARIABLES AND FUNCTIONS                                  #
+####################################################################################### 
+
+function update(){
+	apt install update && apt install hydra gobuster dirb aircrack-ng wifite nmap nikto 
+}
+
+function scanner(){
+	echo
+	read -p "Please enter the ip address you want to scan: " s
+	echo
+	echo "types of scan"  
+	echo
+	echo "(1) Normal scan"
+	echo "(2) Ping scan "
+	echo "(3) Scan all port"
+	echo "(4) Agrassive scan "
+	echo
+	read -p "Please choose your option: " c
+	echo
+	case $c in 
+		1) clear && nmap $s ;;
+		2) clear && nmap -Pn $s ;;	
+		3) clear && nmap -p- $s ;;
+		4) clear && nmap -A $s ;;
+	esac
+}
+
+function wireless(){
+
+	echo "(1) Enable monitor-mode"
+	echo "(2) Desable monitor-mode"
+	echo
+        read -p "enter your choice: " w
+	case $w in 
+		1) airmon-ng start wlan0 ;;
+		2) airmon-ng stop wlan0mon ;;
+	esac
+	echo
+	wifite
+}
+
+function metasploit(){
+	msfconsole
+}
+
+function gobust(){
+	clear
+	echo  
+	echo
+	echo "(1) Brutforce Directory "
+	echo "(2) Bruthforce and Files"
+	read -p "Enter your choice: " r 
+	echo
+	read -p "Please Enter the url: " g    
+	clear
+	case $r in
+		1) gobuster dir -u $g -w /usr/share/dirb/wordlists/common.txt ;;
+		2) gobuster dir -u $g -w /usr/share/dirb/wordlists/common.txt -x php,html,txt,js ;;
+	esac
+}
+
+function cracker(){
+	clear
+	echo
+	echo "(1) SSH Brutforcing (pass only) "
+	echo "(2) FTP Brutforcing (pass only) "
+	echo "(3) SSH Brutforcing (User and Pass)"
+	echo "(4) FTP Brutforcing (User and Pass)"
+	echo 
+	read -p " Select your choice: " h
+	echo
+	case $h in 
+		1) read -p " ip address of target: " v 
+		   read -p " user: " us
+		   read -p " pass(path to wordlist): " ps
+		   hydra $v -l $us -P $ps ssh ;;
+		2) read -p " ip address of target: " vv 
+		   read -p " user: " uss 
+		   read -p " pass(path to wordist): " pss
+		   hydra $vv -l $uss -P $pss ftp ;;
+		3) read -p " ip address of target: " ipp
+		   read -p " user(path to wordlist): " usrr
+		   read -p " pass(path to wordlisr): " psss
+		   hydra $ipp -L $usrr -P $pass ssh ;;
+	        4) read -p " ip address of target: "ippp
+		   read -p " user(path to wordlist): " ussss
+		   read -p " pass(path to wordlist): " passs
+		   hydra $ippp -L $ussss -P $passs ftp ;;
+
+
+	esac
+}
+
+function niki(){
+	clear
+	read -p " Enter the url: " nik 
+	nikto -h $nik
+}
+
+
+#######################################################################################
+#                                       CODES                                         #
+#######################################################################################
+
+echo
+echo "--------------------------------------------------------------------------------"
+echo "#                                  WELCOME                                     #"
+echo "--------------------------------------------------------------------------------"
+echo 
+date
+echo "--------------------------------------------------------------------------------"
+echo """       				      
+ Author      : Frakenstein
+ Date	     : 14/10/20
+ Modified    : 15/10/20
+
+ Warning     :  USE ONLY FOR EDUCATIONAL PURPOSES!!!
+		RESPECT THE PRIVACY OF OTHERS,
+		PRIVACY IS SECURITY,
+		DONT BE A SCRIPT KIDDIE
+
+ Note : Some of the functions in this script only work as superuser
+"""
+echo "--------------------------------------------------------------------------------"
+
+while [ 1 -eq 1 ] # The loop starts here...
+do
+echo
+echo
+echo "(1) Namp (network scanner) "
+echo "(2) Wifite (wifi cracker)"
+echo "(3) Metasploit "
+echo "(4) Gobuster (brutforce url)"
+echo "(5) Hydra (cracker)"
+echo "(6) Nikto"
+echo "(0) Update packages"
+echo
+read -p " select tool: " t
+
+
+case $t in
+        0) update ;;	
+	1) scanner ;; 
+	2) wireless ;;
+	3) metasploit ;;
+	4) gobust ;;
+	5) cracker ;;
+	6) niki ;;
+	*) echo 
+	   echo "new options coming soon !!!" ;;
+esac
+echo "________________________________________________________________________________"
+read $1
+clear
+done
+
