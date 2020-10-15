@@ -55,7 +55,19 @@ function wireless(){
 }
 
 function metasploit(){
-	msfconsole
+	clear
+	echo 
+	echo "(1) Download & install Metasploit"
+	echo "(2) Load Metasploit-framework"
+	echo
+	read -p " Select your choice: " x
+	case $x in 
+		1) curl https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/templates/metasploit-framework-wrappers/msfupdate.erb > msfinstall && \
+  		   chmod 755 msfinstall && \
+                   ./msfinstall ;;
+		2)echo 
+		  msfconsole ;;
+	esac
 }
 
 function gobust(){
